@@ -1,5 +1,6 @@
 from reator.conversao import dX_dL
 from reator.temperatura import dT_dL
+from reator.pressao import ergun
 from scipy.integrate import solve_ivp
 import numpy as np
 import matplotlib.pyplot as plt
@@ -16,7 +17,7 @@ X0 = 0
 P0 = 155 #atm
 T0 = 400 #ºC
 
-L_eval = np.linspace(L0, Lf,51)
+L_eval = np.linspace(L0, Lf,101)
 Y0 = np.array([X0, T0]) #conversão, temperatura
 
 sol = solve_ivp(calc_ODE, [L0, Lf], Y0, t_eval=L_eval, args=(F0, P0))

@@ -16,10 +16,9 @@ def ergun(
     L 
         Comprimento do reator [m].
     P0 
-        Pressão na entrada do reator [atm].
-    
+        Pressão na entrada do reator [atm]. 
     F 
-        Vazão de reagentes na entrada do reator (N2, H2, NH3) [mol/s].
+        Vazão de reagentes do reator (N2, H2, NH3) [mol/s].
     Ac 
         Área da seção transversal do reator [m²].
     φ 

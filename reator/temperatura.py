@@ -89,6 +89,7 @@ def dT_dL(
         ΔHr = calor_de_reacao(P, T)
 
         dT_dL = (η*(-ΔHr)*Ac*rNH3)/(sum(F)*cP)
+        #if 15<L<17: dT_dL*=-5
 
         return dT_dL
 
