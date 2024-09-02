@@ -3,15 +3,16 @@ from reator.quench import reator_quench
 import matplotlib.pyplot as plt
 
 F0 = np.array([0.21825,0.65475,0.05])*6500 #mol/s
-Lbed = [2.2, 5.5, 9 ]
-Pin = 155 #atm
-T1 = 370 #°C
-Tin = 410 #ºC
+Lbed = [3, 6, 30]
+Pin = 255 #atm
+T1 = 420 #°C
+Tin = 400 #ºC
 Fin = F0
-Y = [1/3, 1/3, 1/3]
+Y = [1/2, 1/4, 1/4]
 
+####FAZER A PRESSÃO COMO EQUAÇÃO DIFERENCIAL####
 
-L, T, P, F, rNH3 = reator_quench(Lbed, Pin, Tin, T1, Fin, Y)
+L, T, P, F, rNH3 = reator_quench(Lbed, Pin, Tin, T1, Fin, Y, Ac=4)
 FN2, FH2, FNH3 = F[:, 0], F[:, 1], F[:, 2]
 
 #https://matplotlib.org/stable/gallery/subplots_axes_and_figures/subplots_demo.html

@@ -5,7 +5,6 @@ from reator.conversao import dX_dL
 from reator.temperatura import dT_dL
 from pressao import ergun
 from scipy.integrate import solve_ivp
-import numpy as np
 
 def calc_ODE(
         L: float, 

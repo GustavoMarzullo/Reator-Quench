@@ -22,7 +22,7 @@ def coeficiente_atividade(
     Coeficiente de atividade do nitrogênio, hidrogênio e amônia, respectivamente [adimensional]
     """
     γN2 = 0.93431737 + 0.310180e-3*T + 0.295896e-3*P - 0.270727e-6*T**2 + 0.4775207e-6*P**2
-    γH2 = np.exp(np.exp(-3.8402*T**0.125 +0.541)*P - np.exp(-0.1263*T**0.5 -15.980)*P**2 + 300*(np.exp(-0.011901*T-5.491)*(np.exp(-P/300)-1)))
+    γH2 = np.exp(np.exp(-3.8402*T**0.125 +0.541)*P - np.exp(-0.1263*T**0.5 -15.98)*P**2 + 300*(np.exp(-0.011901*T-5.491)*(np.exp(-P/300)-1)))
     γNH3 = 0.1438996 +  0.2028538e-2*T - 0.4487672e-3*P - 0.1142945e-5*T**2 + 0.2761216e-6*P**2
 
 
@@ -62,7 +62,7 @@ def constante_equilibrio_amonia(T:float) -> float:
     -------
     Constante de equilíbrio da amônia [adimensional]
     """
-    Ka = 10**(-2.691122*np.log10(T) - 5.519265e-5*T + 1.848863e-7*T**2 + 2001.6*T**(-1) + 2.6899)
+    Ka = 10**(-2.691122*np.log10(T) - 5.519265e-5*T + 1.848863e-7*T**2 + 2001.6/T + 2.6899)
     return Ka
 
 ###constantes do fator de efetividade do nitrogênio
@@ -177,8 +177,9 @@ def dX_dL(
     k = constante_velocidade(T)
     aN2, aH2, aNH3 = Y *coeficiente_atividade(P, T) * P
     η = fator_efetividade_N2(P, T, X)
-    rNH3 = 2*k*(Ka**2 * aN2*(aH2**3/aNH3**2)**0.5 - (aNH3**2/aH2**3)**0.5) * η #kmol/(m³.h)
+    rNH3 = 2*k*(Ka**2 * aN2*(aH2**3/aNH3**2)**0.5 - (aNH3**2/aH2**3)**0.5) #kmol/(m³.h)
     rNH3 = rNH3/3.6 #kmol/(m³.h) -> mol/(m³.s)
+    #assert rNH3 >=0
     derivada = (η*rNH3*Ac)/(2*F0N2)
     
     return np.array([derivada, rNH3, F, P, η], dtype=object)
