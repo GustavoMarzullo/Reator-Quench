@@ -52,11 +52,9 @@ def calor_de_reacao(P, T):
 
 def dT_dL(
         X:float,
-        L: float,
+        P:float,
         T:float,
         F0:np.ndarray,
-        P0:float,
-        φ:float=0.4,
         Ac:float=7)-> float:
         """
         Função para calcular a derivada da temperatura no reator.
@@ -66,23 +64,19 @@ def dT_dL(
         ----------
         X
             Conversão de nitrogênio [admensional].
-        L
-            Comprimento do reator [m].
+        P
+            Pressão na entrada do reator [atm].
         T
             Temperatura [ºC].
         F0
             Vazão de reagentes na entrada do reator (N2, H2, NH3) [mol/s].
-        P0
-            Pressão na entrada do reator [atm].
-        φ
-            Porosidade do leito fixo [adimensional].
         Ac
             Área da seção transversal do reator [m²].
         Returns
         -------
         Derivada da temperatura no reator [ºC/m]."""
 
-        _dX_dL, rNH3, F, P, η = dX_dL(X, L, T, F0, P0, φ, Ac)
+        _dX_dL, rNH3, F, _P, η = dX_dL(X, P, T, F0, Ac)
 
         T = T + 273.15 #ºC -> K
         cP = cP_mix(P, T)

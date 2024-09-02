@@ -130,11 +130,9 @@ def fator_efetividade_N2(
 
 def dX_dL(
         X:float,
-        L: float,
+        P: float,
         T:float,
         F0:np.ndarray,
-        P0:float,
-        φ:float=0.4,
         Ac:float=7)-> float:    
     """
     Função para calcular a derivada da conversão de N2 para amônia.
@@ -144,16 +142,12 @@ def dX_dL(
     ----------
     X
         Conversão de nitrogênio [admensional].
-    L
-        Comprimento do reator [m].
+    P
+        Pressão na entrada do reator [atm].
     T
         Temperatura [K].
     F0
         Vazão de reagentes na entrada do reator (N2, H2, NH3) [mol/s].
-    P0
-        Pressão na entrada do reator [atm].
-    φ
-        Porosidade do leito fixo [adimensional].
     Ac
         Área da seção transversal do reator [m²].
     Returns
@@ -171,7 +165,6 @@ def dX_dL(
     F = np.array([FN2, FH2, FNH3])
     Y = F/sum(F) #fração molar
 
-    P = ergun(L, P0, F, Ac, φ)
     T = T+273.15 #°C -> K
     Ka = constante_equilibrio_amonia(T)
     k = constante_velocidade(T)
