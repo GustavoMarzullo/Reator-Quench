@@ -3,14 +3,12 @@ from reator.quench import reator_quench
 import matplotlib.pyplot as plt
 
 F0 = np.array([0.21825,0.65475,0.05])*6500 #mol/s
-Lbed = [3, 10, 50]
+Lbed = [3, 10, 30]
 Pin = 155 #atm
 T1 = 420 #°C
 Tin = 390 #ºC
 Fin = F0
 Y = [0.6, 0.2, 0.2]
-
-####FAZER A PRESSÃO COMO EQUAÇÃO DIFERENCIAL####
 
 L, T, P, F, rNH3 = reator_quench(Lbed, Pin, Tin, T1, Fin, Y, Ac=4)
 FN2, FH2, FNH3 = F[:, 0], F[:, 1], F[:, 2]
