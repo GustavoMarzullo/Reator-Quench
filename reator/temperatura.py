@@ -31,7 +31,7 @@ def cP_mix(
 def calor_de_reacao(P, T): 
     """
     Calcula o calor de reação da reação de síntese de amônia.
-    Fonte: Gunorubon (2014)
+    Fonte: Khademi (2017)
 
     Parameters
     ----------
@@ -45,9 +45,9 @@ def calor_de_reacao(P, T):
     ΔHr : float
         Calor de reação da reação de síntese de amônia [J/mol]"""
     
-    ΔHr = 4.184*(-(0.54526 + 840.609/T + 459.374e6/T**3)*P - 5.34685*T - 0.2525e-3*T**2 + 1069197e-6*T**3 - 9157.09)
+    ΔHr = -(-0.54526 + 846.609/T + (459.734e6)/T**3)*P - 5.34685*T - 0.2525e-3*T**2 + 1.69197e-6*T**3 - 9157.09
 
-    return -41.14e3 #ΔHr 
+    return ΔHr #-41.14e3 
       
 
 def dT_dL(
