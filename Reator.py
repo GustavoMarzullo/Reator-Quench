@@ -2,20 +2,23 @@ import numpy as np
 from reator.quench import reator_quench
 import matplotlib.pyplot as plt
 
-F0 = np.array([0.21825,0.65475,0.05])*3500 #mol/s
-Lbed = [2, 16, 30]
-Pin = 295 #atm
+F0 = np.array([0.21825,0.65475,0.05])*2000 #mol/s
+Lbed = [1.5, 7.5, 30]
+Pin = 250 #atm
 T1 = 420 #°C
-Tin = 385 #ºC
+Tin = 400 #ºC
 Fin = F0
-Y = [0.548, 0.442, 0.01]
+Y = [1/3, 1/3, 1/3]
 
-L, T, P, F, rNH3 = reator_quench(Lbed, Pin, Tin, T1, Fin, Y, Ac=7)
+L, T, P, F, rNH3 = reator_quench(Lbed, Pin, Tin, T1, Fin, Y, Ac=2)
 FN2, FH2, FNH3 = F[:, 0], F[:, 1], F[:, 2]
+
+F0N2 = F0[0]
+XN2 = (F0N2- FN2[-1])/F0N2
 
 #https://matplotlib.org/stable/gallery/subplots_axes_and_figures/subplots_demo.html
 fig, axs = plt.subplots(2, 3)
-fig.suptitle('Reator químico quench de leito fixo')
+fig.suptitle(f'Reator químico quench de leito fixo. Conversão ={XN2:.2%}')
 axs[0, 0].plot(L, FN2, color='black')
 axs[0, 0].set_title("Vazão de nitrogênio")
 #axs[0, 0].set_ylim(ymin=0)

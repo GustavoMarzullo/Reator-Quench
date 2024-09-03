@@ -11,15 +11,15 @@ def f(X):
     L2 = L1 + L2
     L3 = L2 + L3
     Lbed = [L1, L2, L3]
-    L, T, P, F, rNH3 = reator_quench(Lbed, Pin, Tin, T1, F0, Y, Ac=7)
+    L, T, P, F, rNH3 = reator_quench(Lbed, Pin, Tin, T1, F0, Y,Ac=7)
     FN2, FH2, FNH3 = F[:, 0], F[:, 1], F[:, 2]
     XN2 = (F0N2- FN2[-1])/F0N2
     return -XN2
 
-bounds = [(0.1, 14), (0.1, 14), (0.1, 14), (155,295),(200, 600), (200, 600), (0.01, 0.99), (0.01, 0.99), (0.01, 0.99)]
-cons = ({'type': 'eq', 'fun': lambda x:  x[-1] + x[-2] + x[-3] - 1},
-        {'type': 'eq', 'fun': lambda x:  -(x[0] + x[1] + x[2]) + 30})
-X0 = [2, 15, 10, 180, 420, 390, 0.6, 0.3, 0.1]
+bounds = [(1, 20), (1, 20), (1, 20), (155,295),(200, 600), (200, 600), (0.01, 0.99), (0.01, 0.99), (0.01, 0.99)]
+cons = ({'type': 'eq', 'fun': lambda x:  x[6] + x[7] + x[8] - 1},
+        {'type': 'ineq', 'fun': lambda x:  -(x[0] + x[1] + x[2]) + 30})
+X0 = [3, 7, 15, 225, 420, 400, 0.5, 0.4, 0.1]
 res = minimize(f, X0, bounds=bounds, constraints=cons, options={'disp': True}, tol=1e-6)
 
 print('\n',res.x)

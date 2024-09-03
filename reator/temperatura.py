@@ -45,7 +45,7 @@ def calor_de_reacao(P, T):
     ΔHr : float
         Calor de reação da reação de síntese de amônia [J/mol]"""
     
-    ΔHr = -(-0.54526 + 846.609/T + (459.734e6)/T**3)*P - 5.34685*T - 0.2525e-3*T**2 + 1.69197e-6*T**3 - 9157.09
+    ΔHr = -(0.54526 + 846.609/T + (459.734e6)/T**3)*P - 5.34685*T - 0.2525e-3*T**2 + 1.69197e-6*T**3 - 9157.09
 
     return ΔHr #-41.14e3 
       
@@ -81,7 +81,6 @@ def dT_dL(
         T = T + 273.15 #ºC -> K
         cP = cP_mix(P, T)
         ΔHr = calor_de_reacao(P, T)
-
         dT_dL = (η*(-ΔHr)*Ac*rNH3)/(sum(F)*cP)
         #if 15<L<17: dT_dL*=-5
 
