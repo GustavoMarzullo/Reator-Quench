@@ -123,7 +123,7 @@ class Reator:
         assert len(self.Leitos) == len(self.Y), "O número de leitos deve ser o mesmo que o de frações de carga."
         assert np.isclose(sum(self.Y), 1) , "A soma das frações de carga deve ser igual a 1."
 
-        L, T, F, P, rNH3, XN2 = np.array([]), np.array([]), np.empty([3]), np.array([]), np.array([]), np.array([])
+        L, T, F, P, rNH3 = np.array([]), np.array([]), np.empty([3]), np.array([]), np.array([])
 
         Lin = 0.0
         for i in range(len(self.Y)):
@@ -137,7 +137,7 @@ class Reator:
             P0 = self.Reagente.P if i==0 else P[-1]
             F0 = self.Reagente.F()*self.Y[i] if i==0 else self.Reagente.F()*self.Y[i] + F[-1]
             L_eval = np.linspace(0, self.Leitos[i].L, number_of_points)
-            Y0 = [0, Tin, P0]
+            Y0 = [0, T0, P0]
             φ, Ac, Dp = self.Leitos[i].φ, self.Leitos[i].Ac, self.Leitos[i].Dp
 
             #resolvendo o sistema de EDO

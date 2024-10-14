@@ -8,14 +8,14 @@ reagente = Reagente(
     T=420)
 
 L1 = Leito(
-    L = 2)
+    L = 5)
 
 L2 = Leito(
-    L = 5,
+    L = 10,
     T = 400)
 
 L3 = Leito(
-    L = 20,
+    L = 10,
     T = 400)
 
 reator = Reator(
