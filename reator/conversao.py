@@ -1,6 +1,6 @@
 import numpy as np
 import sys
-sys.path.append('reator')
+sys.path.append('Reator')
 from pressao import ergun
 
 def coeficiente_atividade(

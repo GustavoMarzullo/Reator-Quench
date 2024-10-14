@@ -1,8 +1,8 @@
 import numpy as np
 import sys
 sys.path.append('reator')
-from reator.conversao import dX_dL
-from reator.temperatura import dT_dL
+from Reator.conversao import dX_dL
+from Reator.temperatura import dT_dL
 from pressao import dP_dL
 from scipy.integrate import solve_ivp
 
@@ -53,7 +53,8 @@ def reator_quench(
         φ:float=0.4,
         Ac:float=7,
         Dp = 2,
-        number_of_points=31) -> tuple:
+        number_of_points=31,
+        method='RK45') -> tuple:
     """
     Resolve a equação diferencial para um reator químico de leito fixo.
 
@@ -78,15 +79,18 @@ def reator_quench(
     Dp
         Diâmetro das partilhas do leito fixo [mm].
     number_of_points :
-        Número de pontos para a resolução da EDO. O padrão é 31.
+        Número de pontos para a resolução da EDO.
 
     Retorna
     -------
     L, T, P, F :
         Comprimento do reator [m], temperatura [ºC], pressão [atm], composição do reator (N2, H2, NH3) [mol/s] e taxa de reação
     """
+    assert all(Lbed[i] <= Lbed[i+1] for i in range(len(Lbed)-1)), "A lista de leitos deve estar em tamanho acumulado"
+    assert len(Lbed) == len(Y), "Cada leito deve ter sua respectiva fração de carga"
+    #Lbed = []
     L, T, F, P, rNH3, XN2 = np.array([]), np.array([]), np.empty([3]), np.array([]), np.array([]), np.array([])
-    assert len(Lbed) == len(Y)
+    
     for i in range(len(Lbed)):
         if i==0:
             #resolvendo a EDO
@@ -95,7 +99,7 @@ def reator_quench(
             Y0 = [0, T0, P0]
             L_eval = np.linspace(0, Lbed[i], number_of_points)
             F0 = Fin*Y[i]
-            sol = solve_ivp(calc_ODE, [0, Lbed[i]], Y0, t_eval=L_eval, args=(F0, φ, Ac, Dp))
+            sol = solve_ivp(calc_ODE, [0, Lbed[i]], Y0, t_eval=L_eval, args=(F0, φ, Ac, Dp), method=method)
             Xsol, Tsol, Psol = sol.y[0], sol.y[1], sol.y[2]
             #calculando as composições
             F0N2, F0H2, F0NH3 = F0
@@ -112,11 +116,11 @@ def reator_quench(
             L, T, P = np.append(L, L_eval), np.append(T, Tsol), np.append(P, Psol)
         else:
             T0 = (T[-1]*sum(F[-1]) + Tin*sum(Fin)*Y[i])/(sum(F[-1]) + sum(Fin)*Y[i]) #isso pode ser melhorado!!
-            L_eval = np.linspace(L[-1], Lbed[i], number_of_points)
+            L_eval = np.linspace(Lbed[i-1], Lbed[i], number_of_points)
             F0 = Fin*Y[i] + F[-1] 
             P0 = P[-1]
             Y0 = [0, T0, P0]
-            sol = solve_ivp(calc_ODE, [L[-1], Lbed[i]], Y0, t_eval=L_eval, args=(F0, φ, Ac, Dp))
+            sol = solve_ivp(calc_ODE, [Lbed[i-1], Lbed[i]], Y0, t_eval=L_eval, args=(F0, φ, Ac, Dp), method=method)
             Xsol, Tsol, Psol = sol.y[0], sol.y[1], sol.y[2]
             #calculando as composições
             F0N2, F0H2, F0NH3 = F0
@@ -130,7 +134,6 @@ def reator_quench(
                 derivada, _rNH3, _F, Pcalc, η = dX_dL(Xsol[j], Psol[j], Tsol[j], F0, Ac)
                 rNH3 = np.append(rNH3, _rNH3)
             L, T, P = np.append(L, L_eval), np.append(T, Tsol), np.append(P, Psol)
-
     return L, T, P, F[1:len(F)], rNH3
 
             
