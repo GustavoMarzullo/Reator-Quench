@@ -54,7 +54,7 @@ class Reagente:
     T: float
 
     def F_total(self):
-        '''Returns the sum of the reagent flows'''
+        '''Retonar a vazão molar total'''
         return self.FN2 + self.FH2 + self.FNH3
     
     def F(self):
@@ -76,7 +76,7 @@ class Leito:
     
     L: float
     T:float | None = None
-    φ:float=0.4
+    phi:float=0.4
     Ac:float=7
     Dp:float=2
 
@@ -138,7 +138,7 @@ class Reator:
             F0 = self.Reagente.F()*self.Y[i] if i==0 else self.Reagente.F()*self.Y[i] + F[-1]
             L_eval = np.linspace(0, self.Leitos[i].L, number_of_points)
             Y0 = [0, T0, P0]
-            φ, Ac, Dp = self.Leitos[i].φ, self.Leitos[i].Ac, self.Leitos[i].Dp
+            φ, Ac, Dp = self.Leitos[i].phi, self.Leitos[i].Ac, self.Leitos[i].Dp
 
             #resolvendo o sistema de EDO
             sol = solve_ivp(calc_ODE, [0, self.Leitos[i].L], Y0, t_eval=L_eval, args=(F0, φ, Ac, Dp), method=metodo)
@@ -184,9 +184,16 @@ class Resultados:
     def FNH3(self):
         return self.F[:, 2]
     
+    def x(self):        
+        return self.F[-1]/self.F[-1].sum()
+    
     def XN2(self):
         F0N2 = self.Reagente.FN2
         return (F0N2 - self.FN2()[-1]) / F0N2
+
+    def dP(self):
+        '''Retorna a perda de carga em atmosferas'''
+        return self.P[0]-self.P[-1]
     
     def plot(self):
         L = self.L
@@ -222,7 +229,3 @@ class Resultados:
         fig.tight_layout()
 
         plt.show()    
-    
-
-
-
