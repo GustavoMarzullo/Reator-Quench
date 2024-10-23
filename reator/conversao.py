@@ -42,7 +42,7 @@ def constante_velocidade(T: float) -> float:
     -------
     Constante de velocidade da formação da amônia [adimensional]
     """
-    E = 170560 #kJ/kmol
+    E = 170560.76 #kJ/kmol
     R = 8.314 #kJ/(kmol.K)
     k0 = 8.849e14
     k = k0*np.exp(-E/(R*T))
@@ -133,7 +133,7 @@ def dX_dL(
         P: float,
         T:float,
         F0:np.ndarray,
-        Ac:float=7)-> float:    
+        Ac:float)-> float:    
     """
     Função para calcular a derivada da conversão de N2 para amônia.
     Fonte: Jorqueira et. al (2018)

@@ -55,7 +55,7 @@ def dT_dL(
         P:float,
         T:float,
         F0:np.ndarray,
-        Ac:float=7)-> float:
+        Ac:float)-> float:
         """
         Função para calcular a derivada da temperatura no reator.
         Fonte: Jorqueira et. al (2018) 

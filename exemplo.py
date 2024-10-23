@@ -11,11 +11,11 @@ L1 = Leito(
     L = 5)
 
 L2 = Leito(
-    L = 10,
+    L = 15,
     T = 400)
 
 L3 = Leito(
-    L = 10,
+    L = 15,
     T = 400)
 
 reator = Reator(
