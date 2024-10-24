@@ -5,7 +5,7 @@ reagente = Reagente(
     FH2=0.65475*6500,
     FNH3=0.05*6500,
     P=180,
-    T=420)
+    T=400)
 
 L1 = Leito(
     L = 5,
@@ -15,14 +15,14 @@ L1 = Leito(
 
 L2 = Leito(
     L = 15,
-    T = 400,
+    T = 380,
     phi=0.4,
     Ac=7,
     Dp=2)
 
 L3 = Leito(
     L = 15,
-    T = 400,
+    T = 380,
     phi=0.4,
     Ac=7,
     Dp=2)
