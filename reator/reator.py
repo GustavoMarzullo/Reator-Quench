@@ -12,9 +12,9 @@ def calc_ODE(
         L: float, 
         Y: np.ndarray, 
         F0: np.ndarray, 
-        φ:float=0.4,
-        Ac:float=7,
-        Dp:float=2) -> np.ndarray: 
+        φ:float,
+        Ac:float,
+        Dp:float) -> np.ndarray: 
     """
     Função para calcular a conversão e a temperatura em relação ao comprimento do reator.
     
