@@ -8,15 +8,24 @@ reagente = Reagente(
     T=420)
 
 L1 = Leito(
-    L = 5)
+    L = 5,
+    phi=0.4,
+    Ac=7,
+    Dp=2)
 
 L2 = Leito(
     L = 15,
-    T = 400)
+    T = 400,
+    phi=0.4,
+    Ac=7,
+    Dp=2)
 
 L3 = Leito(
     L = 15,
-    T = 400)
+    T = 400,
+    phi=0.4,
+    Ac=7,
+    Dp=2)
 
 reator = Reator(
     Leitos=[L1, L2, L3],
